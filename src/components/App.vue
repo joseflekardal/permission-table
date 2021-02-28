@@ -18,7 +18,7 @@ export default {
   data() {
     return {
       permissions: [
-        { id: "222222", permissionsDenies: [], role: "BUYER_ADMIN" },
+        { id: "222222", permissionDenies: [], role: "BUYER_ADMIN" },
       ],
     };
   },
