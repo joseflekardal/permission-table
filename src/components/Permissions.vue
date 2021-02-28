@@ -4,7 +4,9 @@
       <tr>
         <th>ID</th>
         <th>Superadmin</th>
-        <th>Kan se priser</th>
+        <th v-for="permission in allPermissions" :key="permission.value">
+          {{ permission.label }}
+        </th>
       </tr>
     </thead>
     <tbody>
@@ -20,17 +22,17 @@
             "
           />
         </td>
-        <td>
+        <td v-for="p in allPermissions" :key="p.value">
           <input
             type="checkbox"
-            :checked="!permission.permissionDenies.includes('SEE_PRICES')"
+            :checked="!permission.permissionDenies.includes(p.value)"
             @change="
-              permission.permissionDenies.includes('SEE_PRICES')
+              permission.permissionDenies.includes(p.value)
                 ? permission.permissionDenies.splice(
-                    permission.permissionDenies.indexOf('SEE_PRICES'),
+                    permission.permissionDenies.indexOf(p.value),
                     1
                   )
-                : permission.permissionDenies.push('SEE_PRICES')
+                : permission.permissionDenies.push(p.value)
             "
           />
         </td>
@@ -53,6 +55,15 @@ export default {
   data() {
     return {
       permissions: [...this.modelValue],
+      allPermissions: [
+        { label: "Kan se priser", value: "SEE_PRICES" },
+        { label: "Kan ändra sortiment", value: "CHANGE_PRODUCTS" },
+        { label: "Kan se rabatter", value: "SEE_DISCOUNT" },
+        { label: "Kan lägga order", value: "PLACE_ORDER" },
+        { label: "Kan se ekonomisk uppföljning", value: "SEE_ECONOMY" },
+        { label: "Kan se orderhistorik", value: "SEE_ORDER_HISTORY" },
+        { label: "Kan skapa offerter", value: "CREATE_OFFERT" },
+      ],
     };
   },
   watch: {
